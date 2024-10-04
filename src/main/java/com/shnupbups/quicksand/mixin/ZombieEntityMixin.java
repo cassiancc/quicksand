@@ -39,9 +39,9 @@ public abstract class ZombieEntityMixin extends HostileEntity implements ZombieE
 		super(entityType, world);
 	}
 
-	@Inject(method = "initDataTracker()V", at = @At("RETURN"))
-	private void quicksand_initDataTracker(CallbackInfo ci) {
-		this.getDataTracker().startTracking(CONVERTING_IN_QUICKSAND, false);
+	@Inject(method = "initDataTracker(Lnet/minecraft/entity/data/DataTracker$Builder;)V", at = @At("RETURN"))
+	private void quicksand_initDataTracker(DataTracker.Builder builder, CallbackInfo ci) {
+		builder.add(CONVERTING_IN_QUICKSAND, false);
 	}
 
 	@Override

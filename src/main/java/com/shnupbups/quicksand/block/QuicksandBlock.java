@@ -5,14 +5,7 @@ import java.util.function.Supplier;
 
 import com.shnupbups.quicksand.mixin.LivingEntityAccessor;
 import com.shnupbups.quicksand.registry.QuicksandDamage;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.EntityShapeContext;
-import net.minecraft.block.FluidDrainable;
-import net.minecraft.block.SandBlock;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.FallingBlockEntity;
@@ -26,6 +19,7 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ColorCode;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -43,12 +37,12 @@ import net.fabricmc.api.Environment;
 
 import com.shnupbups.quicksand.registry.QuicksandTags;
 
-public class QuicksandBlock extends SandBlock implements FluidDrainable {
+public class QuicksandBlock extends ColoredFallingBlock implements FluidDrainable {
 	private static final VoxelShape FALLING_SHAPE = VoxelShapes.cuboid(0.0, 0.0, 0.0, 1.0, 0.9f, 1.0);
 
 	public final Supplier<Item> bucket;
 
-	public QuicksandBlock(AbstractBlock.Settings settings, int color, Supplier<Item> bucket) {
+	public QuicksandBlock(AbstractBlock.Settings settings, ColorCode color, Supplier<Item> bucket) {
 		super(color, settings);
 		this.bucket = bucket;
 	}
@@ -160,7 +154,7 @@ public class QuicksandBlock extends SandBlock implements FluidDrainable {
 	}
 
 	@Override
-	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+	protected boolean canPathfindThrough(BlockState state, NavigationType type) {
 		return true;
 	}
 }

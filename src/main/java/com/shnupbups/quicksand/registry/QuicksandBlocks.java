@@ -9,12 +9,12 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvents;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 
 import com.shnupbups.cauldronlib.block.FullCauldronBlock;
 import com.shnupbups.quicksand.Quicksand;
 import com.shnupbups.quicksand.block.QuicksandBlock;
+import net.minecraft.util.ColorCode;
 
 public class QuicksandBlocks {
 	public static Block QUICKSAND;
@@ -25,12 +25,12 @@ public class QuicksandBlocks {
 	public static Block RED_QUICKSAND_CAULDRON;
 
 	public static void init() {
-		QUICKSAND = new QuicksandBlock(FabricBlockSettings.copyOf(Blocks.SAND), 14406560, () -> QUICKSAND_BUCKET);
-		QUICKSAND_BUCKET = new PowderSnowBucketItem(QUICKSAND, SoundEvents.BLOCK_SAND_PLACE, new FabricItemSettings().maxCount(1));
+		QUICKSAND = new QuicksandBlock(FabricBlockSettings.copyOf(Blocks.SAND), new ColorCode(14406560), () -> QUICKSAND_BUCKET);
+		QUICKSAND_BUCKET = new PowderSnowBucketItem(QUICKSAND, SoundEvents.BLOCK_SAND_PLACE, new Item.Settings().maxCount(1));
 		QUICKSAND_CAULDRON =  new FullCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON), QuicksandCauldronBehavior.QUICKSAND_CAULDRON_BEHAVIOR);
 
-		RED_QUICKSAND = new QuicksandBlock(FabricBlockSettings.copyOf(Blocks.RED_SAND), 11098145, () -> RED_QUICKSAND_BUCKET);
-		RED_QUICKSAND_BUCKET = new PowderSnowBucketItem(RED_QUICKSAND, SoundEvents.BLOCK_SAND_PLACE, new FabricItemSettings().maxCount(1));
+		RED_QUICKSAND = new QuicksandBlock(FabricBlockSettings.copyOf(Blocks.RED_SAND), new ColorCode(11098145), () -> RED_QUICKSAND_BUCKET);
+		RED_QUICKSAND_BUCKET = new PowderSnowBucketItem(RED_QUICKSAND, SoundEvents.BLOCK_SAND_PLACE, new Item.Settings().maxCount(1));
 		RED_QUICKSAND_CAULDRON =  new FullCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON), QuicksandCauldronBehavior.RED_QUICKSAND_CAULDRON_BEHAVIOR);
 
 		register();
