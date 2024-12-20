@@ -53,7 +53,7 @@ public class QuicksandDynamicRegistryProvider extends FabricDynamicRegistryProvi
     }
 
     public <T> void addEntry(RegistryWrapper.WrapperLookup registries, Entries entries, RegistryKey<Registry<T>> registryKey, RegistryKey<T> key) {
-        entries.add(key, registries.getWrapperOrThrow(registryKey).getOrThrow(key).value());
+        entries.add(key, registries.getOrThrow(registryKey).getOrThrow(key).value());
     }
 
     @Override

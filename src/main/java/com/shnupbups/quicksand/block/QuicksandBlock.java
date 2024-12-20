@@ -11,12 +11,16 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ColorCode;
@@ -54,7 +58,7 @@ public class QuicksandBlock extends ColoredFallingBlock implements FluidDrainabl
 	}
 
 	@Override
-	public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
+	protected VoxelShape getCullingShape(BlockState state) {
 		return VoxelShapes.empty();
 	}
 
@@ -72,8 +76,8 @@ public class QuicksandBlock extends ColoredFallingBlock implements FluidDrainabl
 			}
 
 			if (hasEntityMoved(entity) || world.getRandom().nextFloat() < 0.2) {
-				if (entity instanceof LivingEntity living && shouldDamage(world, living)) {
-					living.damage(QuicksandDamage.quicksand(living.getDamageSources()), 1f);
+				if (entity instanceof LivingEntity living && shouldDamage(world, living) && world instanceof ServerWorld serverWorld) {
+					living.damage(serverWorld, QuicksandDamage.quicksand(living.getDamageSources()), 1f);
 				}
 
 				if(world.getRandom().nextBoolean()) spawnParticles(world, state, new Vec3d(entity.getX(), pos.getY(), entity.getZ()));
